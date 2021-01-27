@@ -40,10 +40,16 @@ This files defines well known classes which need extra maintenance including:
 
 __author__ = 'jieluo@google.com (Jie Luo)'
 
-import collections
 from datetime import datetime
 from datetime import timedelta
 import six
+
+try:
+  # Since python 3
+  import collections.abc as collections_abc
+except ImportError:
+  # Won't work after python 3.8
+  import collections as collections_abc
 
 from google.protobuf.descriptor import FieldDescriptor
 
@@ -782,7 +788,7 @@ class Struct(object):
     for key, value in dictionary.items():
       _SetStructValue(self.fields[key], value)
 
-collections.MutableMapping.register(Struct)
+collections_abc.MutableMapping.register(Struct)
 
 
 class ListValue(object):
@@ -826,7 +832,7 @@ class ListValue(object):
     list_value.Clear()
     return list_value
 
-collections.MutableSequence.register(ListValue)
+collections_abc.MutableSequence.register(ListValue)
 
 
 WKTBASES = {

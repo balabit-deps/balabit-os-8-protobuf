@@ -34,8 +34,14 @@
 
 __author__ = 'jieluo@google.com (Jie Luo)'
 
-import collections
 from datetime import datetime
+
+try:
+  # Since python 3
+  import collections.abc as collections_abc
+except ImportError:
+  # Won't work after python 3.8
+  import collections as collections_abc
 
 try:
   import unittest2 as unittest  #PY26
@@ -684,7 +690,7 @@ class StructTest(unittest.TestCase):
 
   def testStruct(self):
     struct = struct_pb2.Struct()
-    self.assertIsInstance(struct, collections.Mapping)
+    self.assertIsInstance(struct, collections_abc.Mapping)
     self.assertEqual(0, len(struct))
     struct_class = struct.__class__
 
@@ -693,7 +699,7 @@ class StructTest(unittest.TestCase):
     struct['key3'] = True
     struct.get_or_create_struct('key4')['subkey'] = 11.0
     struct_list = struct.get_or_create_list('key5')
-    self.assertIsInstance(struct_list, collections.Sequence)
+    self.assertIsInstance(struct_list, collections_abc.Sequence)
     struct_list.extend([6, 'seven', True, False, None])
     struct_list.add_struct()['subkey2'] = 9
     struct['key6'] = {'subkey': {}}
