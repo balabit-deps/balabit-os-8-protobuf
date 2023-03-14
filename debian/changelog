@@ -1,3 +1,9 @@
+protobuf (3.6.1.3-2ubuntu5.2bb1) focal; urgency=medium
+
+  * Balabit patched version
+
+ -- Balabit Platform Team <devnull@dev.null>  Tue, 14 Mar 2023 12:52:07 +0100
+
 protobuf (3.6.1.3-2ubuntu5.2) focal-security; urgency=medium
 
   * SECURITY UPDATE: Null pointer dereference issue
